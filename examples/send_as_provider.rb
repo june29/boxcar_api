@@ -8,7 +8,7 @@ SETTINGS = Pit.get('boxcar', :require => {
                    :provider_secret => 'provider secret'
 })
 
-bp = BoxcarAPI::Provider.new(SETTINGS[:provider_key], SETTINGS[:provider_key])
+bp = BoxcarAPI::Provider.new(SETTINGS[:provider_key], SETTINGS[:provider_secret])
 
 #### Send an invitation to a user by their e-mail address, to add your service.
 res = bp.subscribe(SETTINGS[:email])
