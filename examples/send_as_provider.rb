@@ -1,11 +1,12 @@
 require 'rubygems'
 require 'boxcar_api'
+require 'pit'
 
-SETTINGS = {
-  :provider_key => 'xyz',
-  :provider_secret => 'xyz',
-  :email => 'user@example.com'
-}
+SETTINGS = Pit.get('boxcar', :require => {
+                   :email           => 'e-mail address',
+                   :provider_key    => 'provider key',
+                   :provider_secret => 'provider secret'
+})
 
 bp = BoxcarAPI::Provider.new(SETTINGS[:provider_key], SETTINGS[:provider_key])
 
@@ -60,7 +61,7 @@ end
 # Redirect payloads are what replaces "::user::" in your Boxcar redirect URL.
 # Also include a source_url and an icon_url
 
-res = bp.notify(SETTINGS[:email], "This is an example message.", "from", nil, "jdg", "http://google.com", 
+res = bp.notify(SETTINGS[:email], "This is an example message.", "from", nil, "jdg", "http://google.com",
                 "http://graph.facebook.com/jonathan.george/picture")
 if res.code == 200
   puts "Success!  You sent a personalized message with a redirect payload, source_url and icon_url to #{SETTINGS[:email]}."
